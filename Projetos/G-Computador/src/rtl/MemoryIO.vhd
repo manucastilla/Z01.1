@@ -27,6 +27,7 @@ entity MemoryIO is
 
      -- I/Os
      SW  : in std_logic_vector(9 downto 0);
+     SSEG: OUT std_logic_vector(6 downto 0);
      LED : OUT std_logic_vector(9 downto 0)
 
 		);
