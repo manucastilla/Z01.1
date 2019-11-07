@@ -13,9 +13,8 @@ entity ControlUnit is
 		instruction                 : in STD_LOGIC_VECTOR(17 downto 0);  -- instrução para executar
 		zr,ng                       : in STD_LOGIC := '0';                      -- valores zr(se zero) e ng(se negativo) da ALU
 		muxALUI_A                   : out STD_LOGIC;                     -- mux que seleciona entre instrução e ALU para reg. A
-		muxAM                       : out STD_LOGIC;                     -- mux que seleciona entre reg. A e Mem. RAM para ALU
 		muxSD_ALU                   : out STD_LOGIC;                     -- mux que seleciona entre reg. S e reg. D
-	   muxAMD_ALU                  : out STD_LOGIC;                     -- mux que seleciona entre reg. A e Mem. RAM para ALU
+	 	muxAMD_ALU                  : out STD_LOGIC_VECTOR(1 downto 0);                     -- mux que seleciona entre reg. A e Mem. RAM para ALU
 		zx, nx, zy, ny, f, no       : out STD_LOGIC;                     -- sinais de controle da ALU
 	   loadA, loadD, loadS, loadM, loadPC : out STD_LOGIC               -- sinais de load do reg. A, reg. D,
          	                                                           -- Mem. RAM e Program Counter
@@ -47,8 +46,15 @@ sno  <= i17 and instruction(7);
 
 
 muxALUI_A <=  not i17;
-muxAM <=   instruction(14) and not instruction(15);
-muxAMD_ALU <=  not instruction(15);
+-- muxAM <=   instruction(14) and not instruction(15);
+
+muxAMD_ALU <=  "01" when instruction(15 downto 13) = "000" else 
+			   "00" when instruction(15 downto 13) = "101" else 
+			   "10" when instruction(15 downto 13) = "010" else 
+			   "10" when instruction(15 downto 13) = "011" else 
+			   "11";
+
+
 muxSD_ALU <= not instruction(13) and not instruction(15);
 
 loadA <= instruction(6) or (not instruction(17));

@@ -90,8 +90,9 @@ ARCHITECTURE logic OF MemoryIO IS
   signal wRAM : std_logic;
   signal swout: STD_LOGIC_VECTOR(15 downto 0);
   signal wReg : std_logic;
-  signal outReg : STD_LOGIC_VECTOR(15 downto 0);
+  signal outReg, outRegSseg : STD_LOGIC_VECTOR(15 downto 0);
   signal wLCD : std_logic;
+  signal LOADSSEG : std_logic;
 
 begin
 
@@ -131,12 +132,7 @@ begin
          LCD_WR_N     => LCD_WR_N
    );
 
-    REG : Register16 port map(
-      clock => CLK_SLOW,
-      input => INPUT,
-      load => LOAD,
-      output => outReg);
-
+  
 
     RAM: RAM16K  PORT MAP(
          clock		=> CLK_FAST,
@@ -155,15 +151,30 @@ begin
      wReg <= LOAD when ADDRESS <= x"52C0" else
              '0'; 
 
-
-
      OUTPUT <= qRAM when (ADDRESS(14) = '0') else
                swout;
          
+    REG : Register16 port map(
+      clock => CLK_SLOW,
+      input => INPUT,
+      load => LOAD,
+      output => outReg);
 
     LED <= outReg(9 downto 0);
+
     swout(9 downto 0) <= SW(9 downto 0);
 
 
+    LOADSSEG <= '1' when ADDRESS = "101001011000010" else
+                '0';
+      
+    REGSSEG : Register16 port map(
+      clock => CLK_SLOW,
+      input => INPUT,
+      load => LOADSSEG,
+      output => outRegSseg);
+
+
+    SSEG <= outRegSseg(6 downto 0);
 
 END logic;

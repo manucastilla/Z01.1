@@ -1,0 +1,160 @@
+leaw $16526, %A 
+movw $-1,(%A) 
+leaw $16527, %A 
+movw $-1,(%A) 
+leaw $16528, %A 
+movw $-1,(%A) 
+leaw $16529, %A 
+movw $-1,(%A) 
+leaw $16530, %A 
+movw $-1,(%A) 
+leaw $16531, %A 
+movw $-1,(%A) 
+leaw $16532, %A 
+movw $-1,(%A) 
+leaw $16533, %A 
+movw $-1,(%A) 
+leaw $16534, %A 
+movw $-1,(%A) 
+leaw $16535, %A 
+movw $-1,(%A) 
+leaw $16536, %A 
+movw $-1,(%A) 
+leaw $16537, %A 
+movw $-1,(%A) 
+leaw $16538, %A 
+movw $-1,(%A) 
+leaw $16539, %A 
+movw $-1,(%A) 
+leaw $16546, %A 
+movw $-1,(%A) 
+leaw $16547, %A 
+movw $-1,(%A) 
+leaw $16548, %A 
+movw $-1,(%A) 
+leaw $16549, %A 
+movw $-1,(%A) 
+leaw $16550, %A 
+movw $-1,(%A) 
+leaw $16551, %A 
+movw $-1,(%A) 
+leaw $16552, %A 
+movw $-1,(%A) 
+leaw $16553, %A 
+movw $-1,(%A) 
+leaw $16554, %A 
+movw $-1,(%A) 
+leaw $16555, %A 
+movw $-1,(%A) 
+leaw $16556, %A 
+movw $-1,(%A) 
+leaw $16557, %A 
+movw $-1,(%A) 
+leaw $16558, %A 
+movw $-1,(%A) 
+leaw $16559, %A 
+movw $-1,(%A) 
+leaw $16566, %A 
+movw $-1,(%A) 
+leaw $16587, %A 
+movw $-1,(%A) 
+leaw $16607, %A 
+movw $-1,(%A) 
+leaw $16628, %A 
+movw $-1,(%A) 
+leaw $16648, %A 
+movw $-1,(%A) 
+leaw $16669, %A 
+movw $-1,(%A) 
+leaw $16689, %A 
+movw $-1,(%A) 
+leaw $16710, %A 
+movw $-1,(%A) 
+leaw $16730, %A 
+movw $-1,(%A) 
+leaw $16751, %A 
+movw $-1,(%A) 
+leaw $16771, %A 
+movw $-1,(%A) 
+leaw $16792, %A 
+movw $-1,(%A) 
+leaw $16812, %A 
+movw $-1,(%A) 
+leaw $16831, %A 
+movw $-1,(%A) 
+leaw $16851, %A 
+movw $-1,(%A) 
+leaw $16870, %A 
+movw $-1,(%A) 
+leaw $16890, %A 
+movw $-1,(%A) 
+leaw $16909, %A 
+movw $-1,(%A) 
+leaw $16929, %A 
+movw $-1,(%A) 
+leaw $16948, %A 
+movw $-1,(%A) 
+leaw $16968, %A 
+movw $-1,(%A) 
+leaw $16987, %A 
+movw $-1,(%A) 
+leaw $17007, %A 
+movw $-1,(%A) 
+leaw $17026, %A 
+movw $-1,(%A) 
+leaw $17046, %A 
+movw $-1,(%A) 
+leaw $17047, %A 
+movw $-1,(%A) 
+leaw $17048, %A 
+movw $-1,(%A) 
+leaw $17049, %A 
+movw $-1,(%A) 
+leaw $17050, %A 
+movw $-1,(%A) 
+leaw $17051, %A 
+movw $-1,(%A) 
+leaw $17052, %A 
+movw $-1,(%A) 
+leaw $17053, %A 
+movw $-1,(%A) 
+leaw $17054, %A 
+movw $-1,(%A) 
+leaw $17055, %A 
+movw $-1,(%A) 
+leaw $17056, %A 
+movw $-1,(%A) 
+leaw $17057, %A 
+movw $-1,(%A) 
+leaw $17058, %A 
+movw $-1,(%A) 
+leaw $17059, %A 
+movw $-1,(%A) 
+leaw $17066, %A 
+movw $-1,(%A) 
+leaw $17067, %A 
+movw $-1,(%A) 
+leaw $17068, %A 
+movw $-1,(%A) 
+leaw $17069, %A 
+movw $-1,(%A) 
+leaw $17070, %A 
+movw $-1,(%A) 
+leaw $17071, %A 
+movw $-1,(%A) 
+leaw $17072, %A 
+movw $-1,(%A) 
+leaw $17073, %A 
+movw $-1,(%A) 
+leaw $17074, %A 
+movw $-1,(%A) 
+leaw $17075, %A 
+movw $-1,(%A) 
+leaw $17076, %A 
+movw $-1,(%A) 
+leaw $17077, %A 
+movw $-1,(%A) 
+leaw $17078, %A 
+movw $-1,(%A) 
+leaw $17079, %A 
+movw $-1,(%A) 
