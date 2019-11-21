@@ -25,7 +25,11 @@ public class Parser {
     private String currentLine;            // linha de codigo atual
     private BufferedReader fileReader;  // leitor de arquivo
 
-
+    public enum CommandType {
+        A_COMMAND,      // comandos LEA, que armazenam no registrador A
+        C_COMMAND,      // comandos de calculos
+        L_COMMAND       // comandos de Label (símbolos)
+    }
     /**
      * Abre o arquivo de entrada NASM e se prepara para analisá-lo.
      *
@@ -44,30 +48,32 @@ public class Parser {
      *
      * @return Verdadeiro se ainda há instruções, Falso se as instruções terminaram.
      */
-    public Boolean advance() {
+    public Boolean advance() throws IOException {
         // usar o fileReader.readLine();
-        try {
+        // String str = fileReader.readLine();
+        String instruction = fileReader.readLine();
+        while(instruction != null){
+            if(!instruction.equals("")){
+                String[] rom = instruction.split(";");
+                if(rom.length>0){
 
-            String read = ";";
-            while (read.charAt(0) == ';') {
-                read = fileReader.readLine();
-                if (read == null) {
-                    return false;
+
+                    this.currentCommand = rom[0];
+                    this.currentCommand = this.currentCommand.trim();
+                    if(!(this.currentCommand.startsWith(";")) && (this.currentCommand.length() > 0)){
+                        return true;
+                    }
                 }
-                if (read.length() == 0) {
-                    read = fileReader.readLine();
-                }
+
+
             }
-            this.lineNumber++;
-            this.currentCommand = read;
-            return true;
 
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            instruction = fileReader.readLine();
         }
-        return null;
+        return false;
+
     }
+
 
     /**
      * Retorna o comando "intrução" atual (sem o avanço)
@@ -75,18 +81,6 @@ public class Parser {
      * @return a instrução atual para ser analilisada
      */
     public String command() {
-        String[] stackP = this.currentCommand.split(" ");
-        String sts = "";
-        for (String s : stackP) {
-            if (!s.isEmpty()) {
-                if (s.charAt(0) != ';') {
-                    sts += s + " ";
-                } else {
-                    break;
-                }
-            }
-        }
-        this.currentCommand = sts.trim();
         return this.currentCommand;
     }
 
@@ -167,11 +161,7 @@ public class Parser {
     /**
      * Enumerator para os tipos de comandos do Assembler.
      */
-    public enum CommandType {
-        A_COMMAND,      // comandos LEA, que armazenam no registrador A
-        C_COMMAND,      // comandos de calculos
-        L_COMMAND       // comandos de Label (símbolos)
-    }
+
 
 
 }
