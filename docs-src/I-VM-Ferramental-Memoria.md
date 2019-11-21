@@ -2,15 +2,14 @@ Para a máquina virtual funcionar corretamente devemos agora definir regiões de
 
 A seguir um resumo dos endereços de memória e suas funções :
 
-| Endereço (RAM) | Símbolo | Nome          | Uso                                             |
-|----------------|---------|---------------|-------------------------------------------------|
-|              0 | SP      | Stack Pointer | Ponteiro para o topo da pilha                   |
-|              1 | LCL     | Local         | Ponteiro para a base das variáveis de um função |
-|              2 | ARG     | Argument      | Ponteiro para a base dos argumentos             |
-|                |         |               | da chamada de uma função                        |
-|              3 | THIS    | This          | Ponteiro para a base do segmento this           |
-|              4 | THAT    | That          | Ponteiro para a base do segmento that           |
-|          5..12 | Temp    | Temporary     | Endereços para armazenar variáveis temporárias  |
+| Endereço (RAM) | Símbolo | Nome          | Uso                                               |
+|----------------|---------|---------------|---------------------------------------------------|
+|              0 | SP      | Stack Pointer | Ponteiro para o topo da pilha                     |
+|              1 | LCL     | Local         | Ponteiro para a base das variáveis de um função   |
+|              2 | ARG     | Argument      | Ponteiro para a base dos argumentos de uma função |
+|              3 | THIS    | This          | Ponteiro para a base do segmento this             |
+|              4 | THAT    | That          | Ponteiro para a base do segmento that             |
+|          5..12 | Temp    | Temporary     | Endereços para armazenar variáveis temporárias    |
 
 Além dos endereços específicos (que possuem papeis especiais), devemos também definir regiões da memória que serão utilizadas para armazenar tipos de dados específicos, são eles :
 
@@ -46,7 +45,7 @@ A stack é utilizada também para armazenar os valores passados na chamada de fu
 
 ![Stack Pointer](figs/I-VM/SP.svg)
 
-### Stack overflow ?
+### Stack overflow?
 
 Agora fica mais claro o significado do site stack overflow ? Indica o estouro da pilha. Imagine a situação na qual só oclocamos dados na pilha e nunca tiramos (**pop**, em algum momento a pilha irá passar seu valor máximo, que no nosso caso é : 2047 - 256 =  1791 endereços e começará a escrever na região reservada peara o Heap, corrompendo os dados ali salvos.
 
@@ -70,8 +69,6 @@ O fluxo de chamada de função (call) é um pouco complexo, pois demanda que sal
 - This (antes da chamada de função)
 - That (antes da chamada de função)
 
-> Veremos isso com mais detalhes futuramente.
-
 ### LCL - Local 
 
 Local indica o endereço na pilha na qual foi alocado para as variáveis locais de uma função, a quantidade de endereços alocados varia conforme a declaração da função, que pode possuir zero ou mais variáveis temporárias.
@@ -88,7 +85,7 @@ void example(int a, int b){
 }
 ```
 
-Note que essa função possui duas variáveis locais : **aux0, aux1**, que são visíveis somente dentro do escopo da função, essas variáveis são alocadas quando a função é chamada e desalocada quando a função retorna. Essas variáveis (aux0, aux1) servem como variáveis locais da função, e são salvas na stack, como a ilustração a seguir :
+Note que essa função possui duas variáveis locais : **aux0, aux1**, que são visíveis somente dentro do escopo da função, essas variáveis são alocadas quando a função é chamada e desalocada quando a função retorna. Essas variáveis (aux0, aux1) servem como variáveis locais da função, e são salvas na stack, como a ilustração a seguir:
 
 ![Local](figs/I-VM/lclArg.svg)
 
@@ -104,15 +101,20 @@ O exemplo em java anterior seria traduzido para a linguagem VM (de forma imediat
 
 Note que o que define **local 0** e **local 1** é a ordem na qual as variáveis foram declaradas, como a variável *aux0* foi declarada primeiro, ela é alocada no *local 0*. 
 
-O **LCL** aponta apenas para o endereço do primeiro *local*, os demais são inferidos da seguinte maneira :
+O **LCL** aponta apenas para o endereço do primeiro *local*, os demais são inferidos da seguinte maneira:
 
-- push local n
+!!! note ""
+    push local n
 
-> **endereço local n = LCL + n**
+!!! tip
+    Endereço `local n` = LCL + n
 
 ### ARG - Argumento
 
 O ponteiro ARG indica a onde na pilha estão salvos os argumentos que a função pode acessar, e segue a mesma lógica do LCL, onde o ARG aponta para o primeiro argumento e o endereço dos demais são inferidos com base no endereço do primeiro.
+
+!!! tip
+    Endereço `argument n` = ARG + n
 
 # Static variables
 
@@ -144,9 +146,10 @@ public class class1 {
  }
 ```
 
-> As variáveis estáticas são compartilhadas entre os objetos inicializados a partir da mesma classe, alocando assim apenas um slot de memória para todos os objetos criados a partir dessa classe ^1.
-
-^1: https://beginnersbook.com/2013/05/static-variable/
+!!! note
+    As variáveis estáticas são compartilhadas entre os objetos inicializados a partir da mesma classe, alocando assim apenas um slot de memória para todos os objetos criados a partir dessa classe ^1. 
+    
+    ^1: https://beginnersbook.com/2013/05/static-variable/
 
 # HEAP
 
@@ -192,9 +195,9 @@ This é o ponteiro que referência o próprio objeto: objeto na qual o método o
 
 ## That
 
-O ponteiro **That**  é utilizado para referenciar **outro**  objeto, utilizado no exemplo a seguir :
+O ponteiro **That**  é utilizado para referenciar **outro**  objeto, utilizado no exemplo a seguir:
 
-Método objetoCeleste : 
+Método objeto Celeste: 
 
 ``` java
     void compareMassa(corpoCeleste outro){
@@ -207,7 +210,7 @@ Método objetoCeleste :
     }    
 ```
 
-Código principal :
+Código principal:
 
 ``` java
     void main(){
@@ -219,7 +222,7 @@ Código principal :
 
 Nesse exemplo, incluímos um novo método (compareMass) na classe corpoCeleste, esse novo método compara a massa de um outro objeto com a do próprio objeto, retornando verdadeiro ou falso dependendo do resultado.
 
-Como esse código seria traduzido para VM ? O objeto em questão será acessado utilizando o ponteiro **this** e o objeto a ser comparado será acessado via o **that**. O compilador da linguagem de alto nível para VM será responsável por alocar os objetos nos endereços certos.
+Como esse código seria traduzido para VM? O objeto em questão será acessado utilizando o ponteiro `this` e o objeto a ser comparado será acessado via o `that`. O compilador da linguagem de alto nível para VM será responsável por alocar os objetos nos endereços certos.
 
 ``` vm
 function main 0
