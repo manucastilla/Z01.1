@@ -22,6 +22,16 @@
 // ---------------------------------
 
 function Main.main 0
+push constant 14
+push constant 2
+add
+push constant 8
+push constant 1
+sub
+push constant 16
+push constant 7
+call mult 2
+pop temp 1
 
 
 // esse loop sempre deve existir!

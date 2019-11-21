@@ -13,6 +13,36 @@
 
 function Main.main 0
 
+push constant 0
+pop temp 0
+
+push constant 15
+pop temp 1
+
+push constant 5
+pop temp 2
+
+
+label LOOP
+	push temp 1
+	push temp 2
+	sub
+	pop temp 1
+	push temp 1
+	push constant 0
+	lt
+
+	if-goto END
+	push temp 0
+	push constant 1
+	add
+	pop temp 0
+
+	goto LOOP
+
+
+label END
+//pop temp 0
 
 // esse loop sempre deve existir!
 // caso contrario o computador vai
