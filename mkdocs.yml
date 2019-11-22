@@ -43,6 +43,7 @@ nav:
 
 - Labs:
   - 'Resumo': 'Util-Resumo-Labs.md'
+  - '17: J VM Translator Lab 1': 'J-VMtranslator-Lab-1.md'
   - '16: I VM Lab 1': 'I-VM-Lab-1.md'
   - '15: H Assembler Lab 1':
       - 'H-Assembler-Lab-1.md'
@@ -69,6 +70,9 @@ nav:
 - 'Projetos':
   - 'Util-Resumo-Projetos.md'
   - 'X - Mundo real': 'X-Processadores-Projeto.md'
+  - 'J - VM Translator':
+    - 'Projeto': 'J-VMtranslator-Projeto.md'
+    - 'VM Função': 'J-VMtranslator-memoria.md'
   - 'I - VM':
     - 'Projeto': 'I-VM-Projeto.md'
     - 'VM Linguagem': 'Util-Resumo-VM.md'
