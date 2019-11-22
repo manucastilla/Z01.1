@@ -10,13 +10,10 @@ import os
 import shutil
 import subprocess
 import argparse
+from pathlib import Path
 
-# Scripts python
-ROOT_PATH = subprocess.Popen(['git', 'rev-parse', '--show-toplevel'], stdout=subprocess.PIPE).communicate()[0].rstrip().decode('utf-8')
-PROJ_PATH = os.path.join(ROOT_PATH, 'Projetos', 'src')
-TOOL_PATH = os.path.join(ROOT_PATH, 'Projetos', 'Z01-tools')
-TOOL_SCRIPT_PATH = os.path.join(TOOL_PATH, 'scripts')
-sys.path.insert(0,TOOL_SCRIPT_PATH)
+sys.path.insert(0, str(Path.home()) + '/Z01-Tools/scripts/')
+from config import *
 from report import report
 
 reports = ['logJCode.txt', 'logJParser.txt', 'logJSymbolTable.txt']
