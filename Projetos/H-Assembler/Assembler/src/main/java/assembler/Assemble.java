@@ -46,8 +46,36 @@ public class Assemble {
      */
     public SymbolTable fillSymbolTable() throws FileNotFoundException, IOException {
         Parser parser = new Parser(inputFile);
-        while (parser.advance()){
+        int currenteLine = 0;
 
+        while (parser.advance()){
+            if (parser.commandType(parser.command()).equals(Parser.CommandType.L_COMMAND)){
+                String newLabel = parser.label(parser.command());
+                table.addEntry(newLabel, currenteLine);
+            }else{
+                currenteLine  ++;
+            }
+        }
+
+        Parser parser2 = new Parser(inputFile);
+        int labelNumber= 16;
+
+        while (parser2.advance()) {
+            if (parser2.commandType(parser2.command()).equals(Parser.CommandType.A_COMMAND)) {
+                String symbol = parser2.symbol(parser2.command());
+                boolean numeric = true;
+                try {
+                    Double num = Double.parseDouble(symbol);
+                } catch (NumberFormatException e) {
+                    numeric = false;
+                }
+                if (!numeric) {
+                    if (!table.contains(symbol)) {
+                        table.addEntry(symbol, labelNumber);
+                        labelNumber++;
+                    }
+                }
+            }
         }
 
         return table;
@@ -63,6 +91,8 @@ public class Assemble {
     public void generateMachineCode() throws FileNotFoundException, IOException{
         Parser parser = new Parser(inputFile);  // abre o arquivo e aponta para o começo
         String instruction  = null;
+        String bit17_16;
+        String dest, comp, jump, symbol, binary;
 
         /**
          * Aqui devemos varrer o código nasm linha a linha
@@ -70,10 +100,25 @@ public class Assemble {
          * de instrução válida do nasm
          */
         while (parser.advance()){
+            String[] command = parser.instruction(parser.command());
             switch (parser.commandType(parser.command())){
                 case C_COMMAND:
+                    bit_17_16 = "10";
+                    dest = Code.dest(command);
+                    comp = Code.comp(command);
+                    jump = Code.jump(command);
+                    instruction = bit_17_16 + comp + dest + jump;
                     break;
                 case A_COMMAND:
+                    bit_17_16 = "00";
+                    symbol = parser.symbol(parser.command());
+                    if (table.contains(symbol)) {
+                        int symbol_value = table.getAddress(symbol);
+                        binary = Code.toBinary(Integer.toString(symbol_value));
+                    } else {
+                        binary = Code.toBinary(symbol);
+                    }
+                    instruction = bit_17_16 + binary;
                     break;
                 default:
                     continue;
