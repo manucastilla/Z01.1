@@ -6,11 +6,8 @@
 from os.path import join, dirname
 import sys, subprocess
 
-ROOT_PATH = subprocess.Popen(
-    ['git', 'rev-parse', '--show-toplevel'],
-    stdout=subprocess.PIPE).communicate()[0].rstrip().decode('utf-8')
-sys.path.insert(0, ROOT_PATH + '/Projetos/Z01-tools/scripts/')
-
+from pathlib import Path
+sys.path.insert(0, str(Path.home()) + '/Z01-Tools/scripts/')
 from config import *
 from assembler import assemblerAll, clearbin
 from vmtranslator import vmtranslator, vmtranslatorFromTestDir
@@ -61,10 +58,9 @@ if __name__ == "__main__":
     vmDir = pwd+"/../I-VM/src/"
     nasm = pwd+"/bin/nasm/"
     hack = pwd+"/bin/hack/"
-    
+
     genJAR()
-    
+
     jar = pwd+'/VMtranslator/Z01-VMTranslator.jar'
     print(jar)
     testeVM(ASSEMBLER_JAR, jar , vmDir=vmDir, testDir=testDir, nasmDir=nasm, hackDir=hack, gui=False, verbose=False)
-

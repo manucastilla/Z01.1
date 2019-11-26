@@ -1,8 +1,8 @@
-[![](icon-elementos.png)](https://github.com/Insper/Z01.1/wiki)
+[![](icon-elementos.png)](https://insper.github.io/Z01.1)
 
 > Desenvolvendo um computador operacional do ZERO!
 
-Material disponível na [wiki](https://github.com/Insper/Z01.1/wiki)
+Material disponível na [página](https://insper.github.io/Z01.1)
 
 ## Clonando
 
