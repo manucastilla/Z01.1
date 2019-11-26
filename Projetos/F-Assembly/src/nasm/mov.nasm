@@ -12,3 +12,15 @@
 ; RAM[1] = tmp
 ; RAM[3] = 1
 
+
+leaw $1, %A
+movw (%A), %D
+leaw $0, %A
+movw (%A), %S
+leaw $0, %A
+movw %D, (%A)
+leaw $1, %A
+movw %S, (%A)
+leaw $3, %A
+movw $1, (%A) 
+

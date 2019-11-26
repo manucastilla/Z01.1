@@ -10,10 +10,15 @@ import os
 import shutil
 import subprocess
 import argparse
+
+import sys, subprocess
 from pathlib import Path
 
 sys.path.insert(0, str(Path.home()) + '/Z01-Tools/scripts/')
 from config import *
+
+# Scripts python
+
 from report import report
 
 reports = ['logJCode.txt', 'logJParser.txt', 'logJSymbolTable.txt']

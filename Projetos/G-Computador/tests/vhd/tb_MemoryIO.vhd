@@ -95,10 +95,14 @@ begin
     wait until clk_slow = '1';
     input <= x"0000";
     load  <= '0';
+        wait until clk_slow = '1';
+
 		assert(output = x"A5A5")
       report "Falha em RAM[0] = xA5A5" severity error;
 
+
 		-- Teste: A  - RAM endereço 8192 (meiop)
+    wait until clk_slow = '1';
     address <= std_logic_vector(to_unsigned(8192, 15));
     input   <= x"AAA3";
     load    <= '1';
@@ -109,6 +113,7 @@ begin
       report "Falha em RAM[8192] = xAAA3" severity error;
 
    	-- Teste: A  - RAM endereço 16383
+    wait until clk_slow = '1';
     address <= std_logic_vector(to_unsigned(16383, 15));
     input   <= x"5A5A";
     load    <= '1';
@@ -119,6 +124,7 @@ begin
       report "Falha em RAM[16383] = x5A5A" severity error;
 
    	-- Teste: B - SW
+        wait until clk_slow = '1';
     address <= std_logic_vector(to_unsigned(21185, 15));
     sw      <= "1010101010";
     input   <= x"5A5A";
@@ -128,6 +134,8 @@ begin
       report "Falha em ler a chave SW" severity error;
 
     -- Teste: B - SW
+        wait until clk_slow = '1';
+
     address <= std_logic_vector(to_unsigned(21185, 15));
     sw      <= "1010101111";
     input   <= x"5A5A";
@@ -137,6 +145,8 @@ begin
       report "Falha em ler a chave SW" severity error;
 
    	-- Teste: C - LED
+        wait until clk_slow = '1';
+
     address <= std_logic_vector(to_unsigned(21184, 15));
     input(9 downto 0)   <= "1111000010";
     input(15 downto 10) <= (others => '0');

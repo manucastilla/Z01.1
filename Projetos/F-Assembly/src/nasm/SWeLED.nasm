@@ -8,4 +8,17 @@
 ; Mesma questão da prova
 
 
-
+LOOP:
+    leaw $496, %A
+    movw %A, %D         
+    leaw $21185, %A
+    movw (%A), %S
+    notw %S
+    leaw $14, %A
+    andw %A, %S, %S
+    addw %D, %S, %D
+    leaw $21184, %A
+    movw %D, (%A)
+leaw $LOOP, %A
+jmp
+nop

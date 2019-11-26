@@ -24,6 +24,7 @@ entity Computador is
         RESET_N      : in    std_logic;
         LEDR         : out   std_logic_vector(9 downto 0);
         SW           : in    std_logic_vector(9 downto 0);
+        SSEG         : out   std_logic_vector(6 downto 0);
 
         -- LCD EXTERNAL I/OS
         LCD_CS_N     : out   std_logic;
@@ -86,6 +87,7 @@ architecture logic of Computador is
 			  LCD_INIT_OK  : out   std_logic;
 			  
 			  SW  : in std_logic_vector(9 downto 0);
+        SSEG: out std_logic_vector(6 downto 0);
 			  LED : out std_logic_vector(9 downto 0)        
 			 );
 	end component;
@@ -170,6 +172,7 @@ MEMORY_MAPED : MemoryIO port map (
     LCD_RS 		  => LCD_RS,
     LCD_WR_N 	  => LCD_WR_N,
     SW          => SW,
+    SSEG        => SSEG,
     LED         => LEDR
    );
 
