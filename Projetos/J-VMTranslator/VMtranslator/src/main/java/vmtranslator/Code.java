@@ -70,6 +70,19 @@ public class Code {
         } else if (command.equals("not")) {
             commands.add(String.format("; %d - NOT", lineCode++));
 
+            commands.add("leaw $0,%A");
+            commands.add("movw (%A),%A");
+            commands.add("decw %A");
+
+            commands.add("movw (%A),%S");
+            commands.add("notw %S");
+            commands.add("movw %S, (%A)");
+            commands.add("movw %A, %S");
+            commands.add("incw %S");
+
+            commands.add("leaw $0,%A");
+            commands.add("movw %S,(%A)");
+
         }
 
         String[] stringArray = new String[ commands.size() ];
@@ -120,6 +133,19 @@ public class Code {
             commands.add(String.format("; %d - PUSH %s %d", lineCode++ ,segment, index));
 
             if (segment.equals("constant")) {
+
+                commands.add("leaw $"+ index + ", %A");
+                commands.add("movw %A,%D");
+
+                commands.add("leaw $0,%A");
+                commands.add("movw (%A),%A");
+                commands.add("movw %D,(%A)");
+
+                commands.add("leaw $0,%A");
+                commands.add("movw (%A),%S");
+                commands.add("incw %S");
+                commands.add("movw %S, (%A)");
+
                
             } else if (segment.equals("local")) {
 
