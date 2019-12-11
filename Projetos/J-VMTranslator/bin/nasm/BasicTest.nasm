@@ -9,7 +9,33 @@ movw (%A),%S
 incw %S
 movw %S, (%A)
 ; 1 - PUSH local 0
+leaw $1,%A
+movw (%A),%S
+leaw $0,%A
+addw %S,%A,%D
+movw %D,%A
+movw (%A),%D
+leaw $0,%A
+movw (%A),%S
+movw %S,%A 
+movw %D,(%A)
+incw %A
+movw %A,%S
+leaw $0,%A
+movw %S,(%A)
 ; 2 - POP local 0
+leaw $SP, %A
+movw (%A), %S
+decw %S
+movw %S, (%A)
+movw %S, %A
+movw (%A), %D
+leaw $1, %A
+movw (%A), %S
+leaw $0,%A
+addw %A, %S, %S
+movw %S, %A
+movw %D, (%A)
 ; 3 - PUSH constant 21
 leaw $21, %A
 movw %A,%D
@@ -76,75 +102,77 @@ movw (%A),%S
 incw %S
 movw %S, (%A)
 ; 14 - POP temp 6
+leaw $SP,%A
+movw (%A), %S
+decw %S
+movw %S, (%A)
+movw (%A), %A
+movw (%A), %S
+leaw $6, %A
+movw %A, %D
+leaw $5, %A
+addw %A, %D, %D
+movw %D, %A
+movw %S, (%A)
 ; 15 - PUSH local 0
+leaw $1,%A
+movw (%A),%S
+leaw $0,%A
+addw %S,%A,%D
+movw %D,%A
+movw (%A),%D
+leaw $0,%A
+movw (%A),%S
+movw %S,%A 
+movw %D,(%A)
+incw %A
+movw %A,%S
+leaw $0,%A
+movw %S,(%A)
 ; 16 - PUSH that 5
 ; 17 - ADD
-leaw $SP,%A
-movw (%A),%A
+leaw $0, %A
+movw (%A), %A
 decw %A
-movw (%A),%D
+movw (%A), %D
 decw %A
-movw (%A),%S
-addw %S, %D, %S
+movw (%A), %S
+addw %D, %S, %S
 movw %S, (%A)
+incw %A
 movw %A, %D
-incw %D
-leaw $SP,%A
-movw %D,(%A)
+leaw $0, %A
+movw %D, (%A)
 ; 18 - PUSH argument 1
 ; 19 - SUB
-leaw $SP,%A
-movw (%A),%A
-decw %A
-movw (%A),%D
-decw %A
-movw (%A),%S
-subw %S, %D, %S
-movw %S, (%A)
-movw %A, %D
-incw %D
-leaw $SP,%A
-movw %D,(%A)
 ; 20 - PUSH this 6
 ; 21 - PUSH this 6
 ; 22 - ADD
-leaw $SP,%A
-movw (%A),%A
+leaw $0, %A
+movw (%A), %A
 decw %A
-movw (%A),%D
+movw (%A), %D
 decw %A
-movw (%A),%S
-addw %S, %D, %S
+movw (%A), %S
+addw %D, %S, %S
 movw %S, (%A)
+incw %A
 movw %A, %D
-incw %D
-leaw $SP,%A
-movw %D,(%A)
+leaw $0, %A
+movw %D, (%A)
 ; 23 - SUB
-leaw $SP,%A
-movw (%A),%A
-decw %A
-movw (%A),%D
-decw %A
-movw (%A),%S
-subw %S, %D, %S
-movw %S, (%A)
-movw %A, %D
-incw %D
-leaw $SP,%A
-movw %D,(%A)
 ; 24 - PUSH temp 6
 ; 25 - ADD
-leaw $SP,%A
-movw (%A),%A
+leaw $0, %A
+movw (%A), %A
 decw %A
-movw (%A),%D
+movw (%A), %D
 decw %A
-movw (%A),%S
-addw %S, %D, %S
+movw (%A), %S
+addw %D, %S, %S
 movw %S, (%A)
+incw %A
 movw %A, %D
-incw %D
-leaw $SP,%A
-movw %D,(%A)
+leaw $0, %A
+movw %D, (%A)
 ; End

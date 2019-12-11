@@ -23,4 +23,16 @@ movw (%A),%S
 incw %S
 movw %S, (%A)
 ; 4 - POP temp 1
+leaw $SP,%A
+movw (%A), %S
+decw %S
+movw %S, (%A)
+movw (%A), %A
+movw (%A), %S
+leaw $1, %A
+movw %A, %D
+leaw $5, %A
+addw %A, %D, %D
+movw %D, %A
+movw %S, (%A)
 ; End

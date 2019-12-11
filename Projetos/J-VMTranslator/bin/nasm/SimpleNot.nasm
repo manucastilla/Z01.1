@@ -1,14 +1,14 @@
 ; 0 - ADD
-leaw $SP,%A
-movw (%A),%A
+leaw $0, %A
+movw (%A), %A
 decw %A
-movw (%A),%D
+movw (%A), %D
 decw %A
-movw (%A),%S
-addw %S, %D, %S
+movw (%A), %S
+addw %D, %S, %S
 movw %S, (%A)
+incw %A
 movw %A, %D
-incw %D
-leaw $SP,%A
-movw %D,(%A)
+leaw $0, %A
+movw %D, (%A)
 ; End
