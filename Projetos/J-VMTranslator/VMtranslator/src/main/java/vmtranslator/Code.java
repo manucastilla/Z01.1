@@ -136,6 +136,7 @@ public class Code {
 
                 commands.add("leaw $"+ index + ", %A");
                 commands.add("movw %A,%D");
+                
 
                 commands.add("leaw $0,%A");
                 commands.add("movw (%A),%A");
