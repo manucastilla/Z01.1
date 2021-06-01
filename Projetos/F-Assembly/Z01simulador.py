@@ -5,12 +5,9 @@
 ######################################################################
 from os.path import join, dirname
 import sys, subprocess, os
+from pathlib import Path
 
-ROOT_PATH = subprocess.Popen(
-    ['git', 'rev-parse', '--show-toplevel'],
-    stdout=subprocess.PIPE).communicate()[0].rstrip().decode('utf-8')
-sys.path.insert(0, ROOT_PATH + '/Projetos/Z01-tools/scripts/')
-
+sys.path.insert(0, str(Path.home()) + '/Z01-Tools/scripts/')
 from config import *
 
 if __name__ == "__main__":

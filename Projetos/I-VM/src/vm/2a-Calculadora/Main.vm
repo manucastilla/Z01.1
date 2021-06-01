@@ -20,7 +20,18 @@
 // ---------------------------------
 
 function Main.main 0
+push constant 14
+push constant 2
+add
+push constant 123
+push constant 1
+sub
+sub
+pop temp 0
+<<<<<<< HEAD
 
+=======
+>>>>>>> 98622c99cc0728f4e860c5f2bcc357f540e8f526
 // esse loop sempre deve existir!
 // caso contrario o computador vai
 // executar lixo de memoria.

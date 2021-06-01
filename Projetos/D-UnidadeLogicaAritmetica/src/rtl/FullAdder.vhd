@@ -22,4 +22,15 @@ architecture rtl of FullAdder is
 begin
   -- Implementação vem aqui!
 
+-- FEITO EM AULA
+--soma <= ((not c) and (a xor b)) or ((not a) and (not b) and c ) or (a and b and c);
+
+--vaium <= (b and c) or (a and ((not b and c) or (b and (not c))));
+
+
+soma <= (a xor b) xor c; -- formas reduzidas
+vaium <= (a and b) or (b and c) or (a and c); -- formas reduzidas
+
+
+
 end architecture;

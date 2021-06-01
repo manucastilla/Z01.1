@@ -11,12 +11,11 @@
 # Tools
 ######################################################################
 from os.path import join, dirname
-import sys, subprocess
+import sys
+from pathlib import Path
 
-ROOT_PATH = subprocess.Popen(
-    ['git', 'rev-parse', '--show-toplevel'],
-    stdout=subprocess.PIPE).communicate()[0].rstrip().decode('utf-8')
-sys.path.insert(0, ROOT_PATH + '/Projetos/Z01-tools/scripts/')
+sys.path.insert(0, str(Path.home()) + '/Z01-Tools/scripts/')
+from config import *
 
 from config import *
 from testeAssembly import compareRam, compareFromTestDir, clearTestDir
@@ -26,10 +25,10 @@ from assembler import assemblerFromTestDir
 from notificacao import testeAssemblySimulateNotif
 
 
-def testeAssembly(jar, testDir, nasmDir, hackDir, gui, verbose):
+def testeAssembly(jar, testDir, nasmDir, hackDir, gui, verbose, nasmFile):
 
     rtlDir = os.path.dirname(os.path.abspath(__file__))+'/Z01-Simulator-RTL/'
-    cError, cLog = assemblerFromTestDir(jar, testDir, nasmDir, hackDir)
+    cError, cLog = assemblerFromTestDir(jar, testDir, nasmDir, hackDir, nasmFile)
 
     if cError > 0:
         compileAllNotify(cError, cLog)
@@ -39,7 +38,7 @@ def testeAssembly(jar, testDir, nasmDir, hackDir, gui, verbose):
         print("- Simulando              ")
         print("-------------------------")
         clearTestDir(testDir)
-        sError, sLog = simulateFromTestDir(testDir, hackDir, gui, verbose, rtlDir=rtlDir)
+        sError, sLog = simulateFromTestDir(testDir, hackDir, gui, verbose, nasmFile, rtlDir=rtlDir)
         if sError != ERRO_NONE:
             testeAssemblySimulateNotif(sError, sLog)
             sys.exit(1)
@@ -48,7 +47,7 @@ def testeAssembly(jar, testDir, nasmDir, hackDir, gui, verbose):
         print("\n-------------------------")
         print("- Testando               ")
         print("-------------------------")
-        tError, tLog = compareFromTestDir(testDir)
+        tError, tLog = compareFromTestDir(testDir, nasmFile)
         if tError:
             testeAssemblySimulateNotif(tError, tLog[:])
         return(tError, tLog)
@@ -71,6 +70,7 @@ if __name__ == "__main__":
 
     ap = argparse.ArgumentParser()
     ap.add_argument("-c", "--testDir", help="lista de arquivos a serem testados")
+    ap.add_argument("-n", "--nasm", help="nome do unico teste a ser executado")
     ap.add_argument("-v", "--verbose", help="log simulacao", action='store_true')
     ap.add_argument("-g", "--gui", help="carrega model sim", action='store_true')
     args = vars(ap.parse_args())
@@ -91,7 +91,7 @@ if __name__ == "__main__":
     nasm = PROJ_F_PATH+"/src/nasm/"
     hack = PROJ_F_PATH+"/bin/hack/"
 
-    error, log = testeAssembly(ASSEMBLER_JAR, testDir=testDir, nasmDir=nasm, hackDir=hack, gui=gui, verbose=verbose)
+    error, log = testeAssembly(ASSEMBLER_JAR, testDir=testDir, nasmDir=nasm, hackDir=hack, gui=gui, verbose=verbose, nasmFile=args["nasm"])
 
     print("\n-------------------------")
     print("- Reportando resultado   ")

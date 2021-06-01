@@ -13,4 +13,7 @@ architecture arch of Mux2Way is
 begin
 
 
+q <= a when sel = '0' else b; 
+
+
 end architecture;

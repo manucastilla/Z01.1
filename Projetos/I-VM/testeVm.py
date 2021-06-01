@@ -5,11 +5,8 @@
 # Disciplina Elementos de Sistemas
 from os.path import join, dirname
 import sys, subprocess
-
-ROOT_PATH = subprocess.Popen(
-    ['git', 'rev-parse', '--show-toplevel'],
-    stdout=subprocess.PIPE).communicate()[0].rstrip().decode('utf-8')
-sys.path.insert(0, ROOT_PATH + '/Projetos/Z01-tools/scripts/')
+from pathlib import Path
+sys.path.insert(0, str(Path.home()) + '/Z01-Tools/scripts/')
 
 from config import *
 from assembler import assemblerAll, clearbin
@@ -17,6 +14,7 @@ from vmtranslator import vmtranslator, vmtranslatorFromTestDir
 from compileVM import compileVM
 from simulateCPU import simulateFromTestDir
 from testeAssembly import compareRam, compareFromTestDir, clearTestDir
+from notificacao import testeAssemblySimulateNotif
 
 def testeVM(jarAssembler, jarVM, testDir, vmDir, nasmDir, hackDir, gui, verbose):
 
@@ -28,25 +26,28 @@ def testeVM(jarAssembler, jarVM, testDir, vmDir, nasmDir, hackDir, gui, verbose)
     print("- to I-VMTranslator/bin/nasm/ ")
     print("------------------------------")
     compileVM(False, jarVM, vmDir+'vm/', nasmDir)
-#    compileVM(False, jarVM, vmDir+'vmExamples/', nasmDir)
+    #compileVM(False, jarVM, vmDir+'vmExamples/', nasmDir)
 
     # montador
     print("-------------------------")
     print("- Assembling files .... " )
     print("-------------------------")
-    assemblerFromTestDir(jarAssembler, testDir, nasmDir, hackDir)
+    sError, sLog = assemblerFromTestDir(jarAssembler, testDir, nasmDir, hackDir)
 
     # simulando
     print("-------------------------")
     print("- Simulating .... ")
     print("-------------------------")
-    simulateFromTestDir(testDir, hackDir, gui, verbose)
+    sError, sLog = simulateFromTestDir(testDir, hackDir, gui, verbose)
+    if sError != ERRO_NONE:
+        testeAssemblySimulateNotif(sError, sLog)
+        sys.exit(1)
 
     # testAssembling files
     print("-------------------------")
     print("- Testando .... ")
     print("-------------------------")
-    compareFromTestDir(testDir)
+    tError, tLog = compareFromTestDir(testDir)
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()

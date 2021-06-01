@@ -6,3 +6,4 @@ python-firebase
 joblib
 subprocess.run
 firebase_admin
+PyQt5
